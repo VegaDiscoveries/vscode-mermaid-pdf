@@ -1,0 +1,64 @@
+{
+  "name": "mermaid-pdf",
+  "displayName": "Mermaid PDF",
+  "description": "Export Mermaid diagram files (.mermaid) to PDF on save or via command.",
+  "version": "1.0.0",
+  "publisher": "VegaDiscoveries",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "icon": "images/icon.png",
+  "categories": ["Other"],
+  "main": "./extension",
+  "activationEvents": ["onStartupFinished"],
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.mermaid-pdf.pdf",
+        "title": "Mermaid PDF: Export (pdf)"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "resourceExtname == .mermaid",
+          "command": "extension.mermaid-pdf.pdf",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "Mermaid PDF",
+      "properties": {
+        "mermaid-pdf.convertOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically export to PDF when a .mermaid file is saved."
+        },
+        "mermaid-pdf.convertOnSaveExclude": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [],
+          "description": "List of filename patterns to exclude from convertOnSave."
+        },
+        "mermaid-pdf.outputDirectory": {
+          "type": "string",
+          "default": "",
+          "description": "Output directory for generated PDFs. Empty = 'Mermaid-to-PDF' subfolder next to source file. Absolute paths used as-is. Relative paths resolved from workspace root."
+        },
+        "mermaid-pdf.mmdcPath": {
+          "type": "string",
+          "default": "",
+          "description": "Full path to the mmdc executable. Leave empty to auto-detect from PATH or npm global bin."
+        },
+        "mermaid-pdf.StatusbarMessageTimeout": {
+          "type": "number",
+          "default": 10000,
+          "description": "Duration (ms) to show the output filename in the status bar after a successful export."
+        }
+      }
+    }
+  }
+}
